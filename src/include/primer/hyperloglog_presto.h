@@ -12,7 +12,9 @@
 
 #pragma once
 
+#include <algorithm>
 #include <bitset>
+#include <cstdint>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <sstream>
@@ -20,6 +22,8 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+#include "include/primer/util.h"
 
 #include "common/util/hash_util.h"
 
@@ -82,6 +86,8 @@ class HyperLogLogPresto {
     return 0;
   }
 
+  auto StoreDenseBucket(std::pair<uint64_t, uint64_t> hi_lo, size_t set_val) -> void ;
+
   /** @brief Structure holding dense buckets (or also known as registers). */
   std::vector<std::bitset<DENSE_BUCKET_SIZE>> dense_bucket_;
 
@@ -92,6 +98,8 @@ class HyperLogLogPresto {
   uint64_t cardinality_;
 
   // TODO(student) - can add more data structures as required
+  size_t b_;
+  uint64_t m_;
 };
 
 }  // namespace bustub
